@@ -64,8 +64,8 @@ function fixVandalism() {
                 // If the element is a footpath, set the broken flag to true
                 if (element.type === 'footpath') {
                     if (element.isAdditionBroken) {
-						totalSpent += repair(element);
-					}
+                        totalSpent += repair(element);
+                    }
                 }
             }
         }
