@@ -24,34 +24,34 @@ const additionCosts = {
 }
 
 function repair(element) {
-	if (park.getFlag("noMoney")) {
-		element.isAdditionBroken = false;
-		return 0;
-	}
-	else {
-		// Find out what type of object is to be repaired
+    if (park.getFlag("noMoney")) {
+        element.isAdditionBroken = false;
+        return 0;
+    }
+    else {
+        // Find out what type of object is to be repaired
         var additionIdentifier = context.getObject("footpath_addition", element.addition).identifier;
-		
-		// Repair costs are the building costs of that specific object
-		var repairCost = additionCosts[additionIdentifier];
-		
-		// If the park has more money than the repairs cost
-		if (park.cash >= repairCost) {
-			// Repair the element and deduct the repair costs
-			park.cash -= repairCost;
-			element.isAdditionBroken = false;
-			return repairCost;
-		}
-		else {
-			throw new Error("Insufficient funds to fix vandalism.")
-			return 0;
-		}
-	}
+
+        // Repair costs are the building costs of that specific object
+        var repairCost = additionCosts[additionIdentifier];
+
+        // If the park has more money than the repairs cost
+        if (park.cash >= repairCost) {
+            // Repair the element and deduct the repair costs
+            park.cash -= repairCost;
+            element.isAdditionBroken = false;
+            return repairCost;
+        }
+        else {
+            throw new Error("Insufficient funds to fix vandalism.")
+            return 0;
+        }
+    }
 }
 
 function fixVandalism() {
-	var totalSpent = 0;
-	
+    var totalSpent = 0;
+
     // Iterate every tile in the map
     for (var y = 0; y < map.size.y; y++) {
         for (var x = 0; x < map.size.x; x++) {
@@ -71,23 +71,23 @@ function fixVandalism() {
         }
     }
 	
-	park.postMessage({type: "blank", text: "Spent $" + totalSpent/10 + " fixing vandalism"});
+    park.postMessage({type: "blank", text: "Spent $" + totalSpent/10 + " fixing vandalism"});
 }
 
 function main() {
 	
-	ui.registerMenuItem("Fix Vandalism", function() { 
-		fixVandalism(); 
-	});
+    ui.registerMenuItem("Fix Vandalism", function() { 
+        fixVandalism(); 
+    });
 
-	ui.registerShortcut({
-		id: "fixVandalism.fixVandalism",
-		text: "Fix Vandalism Shortcut",
-		bindings: ["CTRL+SHIFT+F"],
-		callback: function() {
-			fixVandalism();
-		},
-	});
+    ui.registerShortcut({
+        id: "fixVandalism.fixVandalism",
+        text: "Fix Vandalism Shortcut",
+        bindings: ["CTRL+SHIFT+F"],
+        callback: function() {
+            fixVandalism();
+        },
+    });
     
 }
 
@@ -96,6 +96,6 @@ registerPlugin({
     version: '1.0',
     authors: ['Cendwar'],
     type: 'local',
-	license: "MIT",
+    license: "MIT",
     main: main
 });
